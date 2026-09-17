@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Congratulations | A Moment Worth Celebrating</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Canvas for Ambient Particles -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Background Canvas for Interactive Confetti Sparks -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Ambient Glow Overlay -->
+  <div class="ambient-glow"></div>
+
+  <div class="app-container">
+    
+    <!-- OPENING / HERO SECTION -->
+    <section class="hero-section" id="hero-section">
+      <div class="hero-subtitle-top">A Moment Worth Celebrating</div>
+      <h1 class="hero-title gold-text" id="main-title">CONGRATULATIONS!</h1>
+      <p class="hero-tagline">Excellence earned. Success achieved.</p>
+      
+      <button class="btn-celebrate" id="celebrate-btn" onclick="startCelebration()">
+        Celebrate ✦
+      </button>
+    </section>
+
+    <!-- MAIN CELEBRATION CONTENT (REVEALED ON CLICK) -->
+    <main class="main-content" id="main-content">
+      
+      <!-- Greeting Header -->
+      <header class="greeting-card">
+        <!-- CUSTOMIZABLE NAME -->
+        <h2 class="recipient-name">Congratulations, <span class="gold-text" id="cust-name">Alex</span>!</h2>
+        
+        <!-- CUSTOMIZABLE MAIN MESSAGE -->
+        <p class="custom-message" id="cust-message">
+          Your hard work, dedication, and unwavering determination have brought you to this beautiful moment. You truly deserve to celebrate this outstanding achievement. May this be the glowing beginning of many more wonderful successes.
+        </p>
+      </header>
+
+      <!-- Decorative Divider -->
+      <div class="gold-divider">
+        <div class="line"></div>
+        <div class="diamond">✦</div>
+        <div class="line"></div>
+      </div>
+
+      <!-- Glassmorphism Achievement Highlight Card -->
+      <section class="glass-card">
+        <h3 class="card-title gold-text">A Moment to Remember</h3>
+        
+        <div class="achievement-details">
+          <div class="detail-item">
+            <span class="detail-label">Achievement</span>
+            <!-- CUSTOMIZABLE ACHIEVEMENT TITLE -->
+            <span class="detail-value highlight" id="cust-achievement">Master's Degree Graduation</span>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Date</span>
+            <!-- CUSTOMIZABLE DATE -->
+            <span class="detail-value" id="cust-date">September 17, 2026</span>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Special Note</span>
+            <!-- CUSTOMIZABLE SPECIAL NOTE -->
+            <span class="detail-value note" id="cust-note">
+              "Honoring the dedication, late nights, and courage that made this goal a reality."
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Closing Section -->
+      <section class="closing-section">
+        <p class="closing-text-1">
+          Here’s to your success, your journey, and everything amazing that comes next.
+        </p>
+        <p class="closing-text-2 gold-text">
+          You did it. Now celebrate it.
+        </p>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        Crafted with <span>✦</span> Elegance
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

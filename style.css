@@ -1,0 +1,410 @@
+/* ==========================================================================
+   CSS VARIABLES & GLOBAL RESETS
+   ========================================================================== */
+:root {
+  --bg-midnight: #070B19;
+  --bg-midnight-gradient: radial-gradient(circle at 50% 20%, #111833 0%, #070B19 80%);
+  
+  --gold-primary: #E5C378;
+  --gold-light: #F7E7C4;
+  --gold-dark: #9A7B38;
+  --gold-gradient: linear-gradient(135deg, #F7E7C4 0%, #E5C378 50%, #B88E3D 100%);
+  
+  --text-white: #F9F8F6;
+  --text-muted: #A3ABB9;
+  --pink-accent: rgba(232, 180, 184, 0.25);
+  
+  --glass-bg: rgba(17, 24, 51, 0.45);
+  --glass-border: rgba(229, 195, 120, 0.25);
+  --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-midnight);
+  background-image: var(--bg-midnight-gradient);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ambient Gold Light Overlay */
+.ambient-glow {
+  position: fixed;
+  top: -10vw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  height: 80vw;
+  max-width: 800px;
+  max-height: 800px;
+  background: radial-gradient(circle, rgba(229, 195, 120, 0.08) 0%, rgba(232, 180, 184, 0.03) 40%, rgba(0,0,0,0) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Background Particle Canvas */
+#particle-canvas, #confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#particle-canvas { z-index: 2; }
+#confetti-canvas { z-index: 99; }
+
+/* Container */
+.app-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+
+/* Gold Text Gradient Utility */
+.gold-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ==========================================================================
+   SECTION 1: HERO / OPENING SCREEN
+   ========================================================================== */
+.hero-section {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-subtitle-top {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--gold-primary);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 0 30px rgba(229, 195, 120, 0.2);
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  transition: text-shadow 0.5s ease;
+}
+
+.hero-title.glowing {
+  text-shadow: 0 0 45px rgba(229, 195, 120, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  font-weight: 400;
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+}
+
+/* Elegant CTA Button */
+.btn-celebrate {
+  position: relative;
+  background: transparent;
+  color: var(--gold-light);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 1.1rem 3rem;
+  border: 1px solid var(--gold-primary);
+  border-radius: 50px;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(229, 195, 120, 0.05);
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+
+.btn-celebrate::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(247, 231, 196, 0.25), transparent);
+  transition: left 0.7s ease;
+}
+
+.btn-celebrate:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(229, 195, 120, 0.3), inset 0 0 20px rgba(229, 195, 120, 0.2);
+  color: #FFF;
+  border-color: var(--gold-light);
+}
+
+.btn-celebrate:hover::before {
+  left: 100%;
+}
+
+.btn-celebrate:active {
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   SECTION 2: MAIN CELEBRATION CONTENT (Revealed on click)
+   ========================================================================== */
+.main-content {
+  width: 100%;
+  max-width: 800px;
+  display: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.main-content.visible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Personal Greeting */
+.greeting-card {
+  text-align: center;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.recipient-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.custom-message {
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+  line-height: 1.8;
+  color: #E2E8F0;
+  font-weight: 300;
+  max-width: 680px;
+  margin: 0 auto;
+  letter-spacing: 0.01em;
+}
+
+/* Decorative Divider */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2.5rem 0;
+  width: 100%;
+  opacity: 0.7;
+}
+
+.gold-divider .line {
+  height: 1px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+.gold-divider .diamond {
+  color: var(--gold-primary);
+  font-size: 0.8rem;
+}
+
+/* Glassmorphism Achievement Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  box-shadow: var(--glass-shadow);
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold-gradient);
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--gold-light);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.achievement-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+.detail-value {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.detail-value.highlight {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--gold-primary);
+}
+
+.detail-value.note {
+  font-style: italic;
+  font-size: 1rem;
+  color: #CBD5E1;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* Final Closing Section */
+.closing-section {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.closing-text-1 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--gold-light);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.closing-text-2 {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-white);
+  text-transform: uppercase;
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.8;
+}
+
+.footer span {
+  color: var(--gold-primary);
+}
+
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .glass-card {
+    padding: 2rem 1.25rem;
+  }
+  .btn-celebrate {
+    width: 100%;
+    padding: 1.1rem 1.5rem;
+  }
+}
